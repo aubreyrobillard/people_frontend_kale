@@ -1,11 +1,19 @@
 import { Link, useLoaderData, Form } from "react-router-dom";
+import { baseUrl } from "../base_url";
+import { useNavigate } from "react-router-dom";
 
 function Index(props) {
   // GET THE DATA FROM OUR LOADER
   const people = useLoaderData();
+  const navigate = useNavigate();
 
   return (
     <div>
+      <button onClick={async () => {
+        await fetch(`${baseUrl}/logout`)
+        localStorage.removeItem('loggedIn')
+        navigate('/')
+      }}>Logout</button>
         <h2>Create a Person</h2>
         <Form action="/create" method="post">
             <input type="text" name="name" placeholder="person's name"/>
